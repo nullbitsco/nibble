@@ -28,8 +28,6 @@ enum remote_macros {
   RM_14, RM_15,
 };
 
-//TODO: add bidirectional communication capability
-
 uint8_t
   chksum8(const unsigned char *buf, size_t len);
   
@@ -40,9 +38,22 @@ void
  process_record_remote_kb(uint16_t keycode, keyrecord_t *record),
  matrix_scan_remote_kb(void);
 
+bool
+  vbus_detect(void);
+
 uint8_t
  msg[UART_MSG_LEN],
  msg_idx = 0;
+
+bool
+ is_master = true;
+
+bool vbus_detect(void) {
+  //returns true if VBUS is present, false otherwise.
+   USBCON |= (1 << OTGPADE); //enables VBUS pad
+   _delay_us(10);
+   return (USBSTA & (1<<VBUS));  //checks state of VBUS
+}
 
 uint8_t chksum8(const unsigned char *buf, size_t len) {
   unsigned int sum;
@@ -113,16 +124,41 @@ void process_uart(void) {
 }
 
 void process_record_remote_kb(uint16_t keycode, keyrecord_t *record) {
-  #ifdef KEYBOARD_SLAVE
+  #if defined (KEYBOARD_MASTER)
+  // for future reverse link use
+
+  #elif defined(KEYBOARD_SLAVE)
   if (IS_HID_KC(keycode) || IS_RM_KC(keycode)) {
     dprintf("Remote: send [%u]\n", keycode);
     send_msg(keycode, record->event.pressed);
+  }
+
+  #else //auto check with VBUS
+  if (is_master) {
+    // for future reverse link use
+  }
+  else {
+    if (IS_HID_KC(keycode) || IS_RM_KC(keycode)) {
+      dprintf("Remote: send [%u]\n", keycode);
+      send_msg(keycode, record->event.pressed);
+    }
   }
   #endif
 }
 
 void matrix_scan_remote_kb(void) {
-  #ifdef KEYBOARD_MASTER
+  #if defined(KEYBOARD_MASTER)
   get_msg();
+
+  #elif defined (KEYBOARD_SLAVE)
+  // for future reverse link use
+
+  #else //auto check with VBUS
+  if (is_master) {
+    get_msg();
+  }
+  else {
+    // for future reverse link use
+  }
   #endif
 }

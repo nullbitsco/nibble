@@ -42,6 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  process_record_remote_kb(keycode, record);
   switch(keycode) {
     case KC_CUST: //custom macro
       if (record->event.pressed) {
@@ -70,12 +71,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     
   }
 return true;
-}
-
-bool has_usb(void) {
-   USBCON |= (1 << OTGPADE); //enables VBUS pad
-   _delay_us(10);
-   return (USBSTA & (1<<VBUS));  //checks state of VBUS
 }
 
 void matrix_init_user(void) {

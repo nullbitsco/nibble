@@ -70,4 +70,5 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 ENCODER_ENABLE = yes		# Enable encoder
 # DEBUG_ENABLE = yes			# Enable debug
 RGBLIGHT_ENABLE = yes
+LTO_ENABLE = yes
 # OLED_DRIVER_ENABLE = yes
