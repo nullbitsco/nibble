@@ -14,7 +14,6 @@
  */
 #include QMK_KEYBOARD_H
 #include "remote_kb.h" 
-#include <avr/boot.h>
 
 #define _MA 0
 #define _FN 1
