@@ -16,17 +16,10 @@
 #include QMK_KEYBOARD_H
 #include "bitc_led.h"
 
-void matrix_init_kb(void) {
-    matrix_init_user();
-}
+#ifdef VIA_ENABLE
+#include "via_extras.h"
 
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    return process_record_user(keycode, record);
-}
+#else
 
 void change_RGB(bool clockwise) {
     bool shift = get_mods() & MOD_MASK_SHIFT;
@@ -69,6 +62,19 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
       tap_code(KC_VOLD);
     }  
   }
+}
+#endif
+
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user(keycode, record);
 }
 
 void led_set_kb(uint8_t usb_led) {

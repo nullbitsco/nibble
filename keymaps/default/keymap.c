@@ -20,7 +20,7 @@
 #define _FN 1
 
 enum custom_keycodes {
-  KC_CUST,
+  KC_CUST = SAFE_RANGE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
