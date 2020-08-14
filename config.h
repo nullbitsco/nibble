@@ -13,13 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* Used to set master for remote KB if VUSB detect doesn't work. */
-#define KEYBOARD_MASTER
+// #define KEYBOARD_MASTER
+#define NO_USB_STARTUP_CHECK
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6E61
@@ -35,8 +35,8 @@
 #define MATRIX_COLS 16
 #define MATRIX_MUX_COLS 4
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+/* Set 0 if debouncing isn't needed */
+#define DEBOUNCE 10
 
 /*
  * Keyboard Matrix Assignments
@@ -51,11 +51,9 @@
 /* Optional SMT LED pins */
 #define RGB_DI_PIN E6
 #define RGBLED_NUM 10
-#define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_SLEEP
 
 /* Optional encoder pins */
 #define ENCODERS_PAD_A { B5 }
 #define ENCODERS_PAD_B { B4 }
-
-#endif
