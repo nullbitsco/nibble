@@ -1,5 +1,8 @@
 # NIBBLE
 
+## THIS REPO IS NO LONGER ACTIVELY UPDATED, SINCE THE NIBBLE IS OFFICIALLY SUPPORTED WITHIN QMK.
+## [FIND IT HERE](https://github.com/qmk/qmk_firmware/tree/master/keyboards/nullbitsco/nibble)
+
 ![NIBBLE](https://nullbits.co/static/img/nibble1.jpg)
 
 A unique, tweakable 65% keyboard kit built by nullbits. [More info at nullbits.co](https://nullbits.co/nibble/)
