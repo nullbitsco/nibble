@@ -5,13 +5,6 @@ MCU = atmega32u4
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Bootloader selection
-#   Teensy       halfkay
-#   Pro Micro    caterina
-#   Atmel DFU    atmel-dfu
-#   LUFA DFU     lufa-dfu
-#   QMK DFU      qmk-dfu
-#   ATmega32A    bootloadHID
-#   ATmega328P   USBasp
 BOOTLOADER = atmel-dfu
 
 # Build Options
@@ -20,7 +13,7 @@ BOOTLOADER = atmel-dfu
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = yes         # Console for debug
+CONSOLE_ENABLE = no         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes           # USB Nkey Rollover
@@ -35,8 +28,8 @@ LTO_ENABLE = yes            # Link-time optimization
 CUSTOM_MATRIX = lite        # Lite custom matrix 
 
 # Project specific files
-SRC += matrix.c
-SRC += bitc_led.c
-SRC += big_led.c
-SRC += remote_kb.c
-SRC += tmk_core/common/uart.c
+SRC += matrix.c \
+       bitc_led.c \
+       big_led.c \
+       remote_kb.c \
+       tmk_core/common/uart.c

@@ -13,14 +13,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
-#include "bitc_led.h"
+#pragma once
 
-// Use Bit-C LED to show CAPS LOCK status
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if (res) {
-        set_bitc_LED(led_state.caps_lock ? LED_DIM : LED_OFF);
-    }
-    return res;
-}
+#include "nibble_encoder.h"
+#include "via.h"
+#include "raw_hid.h"
+#include "dynamic_keymap.h"
+#include "tmk_core/common/eeprom.h"
+
+enum nibble_keyboard_value_id {
+  id_encoder_modes = 0x80,
+  id_unused_mode_1,
+  id_encoder_custom,
+  id_unused_mode_2
+};
+
+// Encoder Behavior
+extern uint8_t encoder_value,
+  encoder_mode,
+  enabled_encoder_modes;
+
+void raw_hid_receive_kb(uint8_t *data, uint8_t length),
+  encoder_update_kb(uint8_t index, bool clockwise),
+  custom_config_load(void),
+  via_init_kb(void);
